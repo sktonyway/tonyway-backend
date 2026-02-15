@@ -23,11 +23,6 @@ const NoteSchema = new mongoose.Schema({
   color: {
     type: String,
     default: '#ffffff' // Default white background
-  },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User', // Links the note to a specific user
-    required: true
   }
 }, {
   timestamps: true // This automatically creates 'createdAt' and 'updatedAt' fields

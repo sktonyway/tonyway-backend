@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import connectDB from './db.js'
 
-import Note from './noteSchema.js'
+import notesRouter from './router/blog-route.js'
 import Todo from './todoSchema.js'
 import User from './userSchema.js'
 
@@ -19,14 +19,8 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-app.get('/notes', async (req, res) => {
-    try {
-        const notes = await Note.find().sort({ updatedAt: -1 });
-        res.status(200).json(notes);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-})
+app.use("/notes", notesRouter);
+
 app.get('/todos', async (req, res) => {
     try {
         const todos = await Todo.find().sort({ updatedAt: -1 })
@@ -35,21 +29,6 @@ app.get('/todos', async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 })
-app.post('/notes', async (req, res) => {
-    try {
-        const newNote = new Note({
-            title: req.body.title,
-            content: req.body.content,
-            category: req.body.category
-        });
-
-        const savedNote = await newNote.save();
-        res.status(201).json(savedNote);
-    } catch (err) {
-        // Sends back validation errors (e.g., if title is missing)
-        res.status(400).json({ error: err.message });
-    }
-});
 app.post('/todos', async (req, res) => {
     try {
         const newTodo = new Todo({

@@ -10,12 +10,16 @@ const TodoSchema = new mongoose.Schema({
         type: String,
         maxlength: [200],
         trim: true
-    }
+    },
+    status: {
+    type: String,
+    enum: ['pending','active', 'completed'],
+    default: 'pending'
+  }
 },
     {
         timeStams: true,
     }
 );
-TodoSchema.index({title: 'text', content: 'text'});
 
 export default mongoose.model("Todo", TodoSchema)

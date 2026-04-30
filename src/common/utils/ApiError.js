@@ -15,6 +15,10 @@ class ApiError extends Error {
   }
 
   static conflict(message = "Conflict") {
-    return newApiError(409, message);
+    return new ApiError(409, message);
+  }
+  static notFound(message = "Resource not Available") {
+    return new ApiError(404, message)
   }
 }
+export default ApiError;

@@ -6,7 +6,8 @@ import {
   updateProfile,
   logoutUser,
 } from "./auth.controller.js";
-import { protect } from "./auth.middleware.js";
+
+import {reqUserId} from '../../common/middlewares/authenticate.js'
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ router.get("/", (req, res) => {
 
 router.post("/login", loginUser);
 router.post("/register", registerUser);
-router.get("/me", protect, getMe);
-router.post("/me", protect, updateProfile);
+router.get("/me", reqUserId, getMe);
+router.post("/me", reqUserId, updateProfile);
 router.get("/logout", logoutUser);
 
 export default router;

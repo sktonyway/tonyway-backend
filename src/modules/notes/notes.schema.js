@@ -29,6 +29,11 @@ const NoteSchema = new mongoose.Schema(
       type: String,
       default: "#ffffff", // Default white background
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true, // This automatically creates 'createdAt' and 'updatedAt' fields

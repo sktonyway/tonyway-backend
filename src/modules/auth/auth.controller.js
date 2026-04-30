@@ -1,6 +1,6 @@
 import { asyncHandler } from "../../common/utils/AsyncHandlers.js";
 import User from "../../common/utils/userSchema.js";
-import { protect } from "./auth.middleware.js";
+// import { setUser } from "./auth.middleware.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -60,7 +60,7 @@ function sendTokenResponse(user, statusCode, res) {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     httpOnly: true, // Prevents JS access (Crucial for security)
     secure: true, // Only sends over HTTPS in production
-    sameSite: "Lax", // Protects against CSRF
+    sameSite: "Lax", // setUsers against CSRF
   };
   user.password = undefined;
   res

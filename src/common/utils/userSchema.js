@@ -8,6 +8,9 @@ const sessionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  location: {
+    type: String,
+  },
   device_name: String,
   isActive: {
     type: Boolean,
@@ -17,14 +20,20 @@ const sessionSchema = new mongoose.Schema({
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
       trim: true, // It will required to be true
+    },
+    lastName: {
+      type: String,
+      trim: true,
     },
     userName: {
       type: String,
       trim: true,
       unique: true, // required true
+      sparse: true,
+      lowercase: true,
     },
     email: {
       type: String,
@@ -44,6 +53,7 @@ const UserSchema = new mongoose.Schema(
     },
     dob: {
       type: Date,
+      default: new Date(0),
     },
     sessions: {
       type: [sessionSchema],

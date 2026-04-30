@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import ApiError from './common/utils/ApiError.js'
 const app = express();
 
 // Some middlewares
@@ -16,18 +16,27 @@ app.use("/api/v1/notes", notesRouter);
 app.use("/api/v1/todos", todoRouter);
 app.use("/api/v1/auth", authRouter);
 
-// -------------------------------------------------------------------------
-// These are directly imported from index.js previously which would cause issue
-// So these would be filtered later
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Serving static file
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-// ----------------------------------------------------------------------------
 
+app.use((req, res, next) => {
+  const err = ApiError.notFound(`Route ${req.originalUrl} is missing.`)
+  next(err);
+})
+
+app.use((err, req, res, next) => {
+  const status = err.statusCode || 500;
+  res.status(status).json({
+    success: false,
+    message: err.message || "Internal Server Error"
+  })
+})
 export default app;

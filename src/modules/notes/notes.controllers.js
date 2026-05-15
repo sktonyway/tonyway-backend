@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../common/utils/AsyncHandlers.js";
+import { asyncHandler } from "../../utils/AsyncHandlers.js";
 import Note from "./notes.schema.js";
-import ApiResponse from "../../common/utils/ApiResponse.js";
+import ApiResponse from "../../utils/ApiResponse.js";
 
 const createNote = asyncHandler(async (req, res) => {
   const newNote = new Note({

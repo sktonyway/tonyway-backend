@@ -18,7 +18,7 @@ class ApiError extends Error {
     return new ApiError(409, message);
   }
   static notFound(message = "Resource not Available") {
-    return new ApiError(404, message)
+    return new ApiError(404, message);
   }
 }
 export default ApiError;

@@ -7,18 +7,18 @@ import {
   logoutUser,
 } from "./auth.controller.js";
 
-import {reqUserId} from '../../common/middlewares/authenticate.js'
+import { extractSessionDetails } from "./auth.middleware.js";
+import {
+  checkHeader,
+  logged,
+} from "../../common/middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Message recieved");
-});
-
-router.post("/login", loginUser);
-router.post("/register", registerUser);
-router.get("/me", reqUserId, getMe);
-router.post("/me", reqUserId, updateProfile);
-router.get("/logout", logoutUser);
+router.post("/login", extractSessionDetails, loginUser);
+router.post("/register", extractSessionDetails, registerUser);
+router.get("/me", checkHeader, getMe);
+router.post("/me", checkHeader, updateProfile);
+router.get("/logout", checkHeader, logoutUser);
 
 export default router;

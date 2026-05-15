@@ -6,12 +6,11 @@ async function connectDB(uri) {
     process.exit(1);
   }
   try {
-    const conn = await mongoose.connect(process.env.mongodb_uri);
-    console.log("MongoDB connected successfully at: ", conn.connection.host);
+    const conn = await mongoose.connect(uri);
   } catch (error) {
     console.log("MonggoDB connection Error", error);
     process.exit(1);
   }
 }
 
-export default connectDB;
+export { connectDB };

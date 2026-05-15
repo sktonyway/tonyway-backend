@@ -1,18 +1,23 @@
 import "dotenv/config";
-import app from "./src/app.js";
-import connectDB from "./src/common/config/db.js";
+import { createApp } from "./src/app.js";
+import { connectDB } from "./src/utils/db.js";
 
-const port = process.env.port || 5000;
-const uri = process.env.mongodb_uri;
+async function start() {
+  try {
+    const port = process.env.port;
+    const uri = process.env.mongo_uri;
+    await connectDB(uri).then(() =>
+      console.log("MongoDB connected successfully."),
+    );
+    const app = createApp();
 
-const start = async () => {
-  await connectDB(uri);
-  app.listen(port, () => {
-    console.log(`Server is running at ${port} smoothly.`);
-  });
-};
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+}
 
-start().catch((err) => {
-  console.error("Failed to start server", err);
-  process.exit(1);
-});
+start();

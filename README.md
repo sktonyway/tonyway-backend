@@ -43,12 +43,13 @@
 
 ### AUTH routes
 
-| Controllers  | useCase            | routes /api/v1/auth | method |
-| ------------ | ------------------ | ------------------- | ------ |
-| registerUser | to create New user | /register           | POST   |
-| loginUser    | to login user      | /login              | POST   |
-| logoutUser   | to logout user     | /logout             | GET    |
-| getMe        | to get Info        | /me                 | GET    |
+| Controllers   | useCase            | routes /api/v1/auth | method |               |
+| ------------- | ------------------ | ------------------- | ------ | ------------- |
+| registerUser  | to create New user | /register           | POST   |               |
+| loginUser     | to login user      | /login              | POST   |               |
+| logoutUser    | to logout user     | /logout             | GET    | needs upgrade |
+| getMe         | to get Info        | /me                 | GET    | needs upgrade |
+| updateProfile | to update profile  | /me                 | POST   | needs upgrade |
 
 Currently, the focus is just on notes and authentication so I am avoiding rest features for now.
 
@@ -61,29 +62,30 @@ Currently, the focus is just on notes and authentication so I am avoiding rest f
 
 ```js
    {
-  "_id": {
-    "$oid": "69a1a9acce7ab4c6341013bd"
-  },
-  "password": "123456", // String
-  "DOB": {
-    "$date": "2005-01-01T00:00:00.000Z" // Date
-  },
-  "Sessions": [ // Array of objects
+  "_id": "65f2a1b2c3d4e5f6a7b8c9d0",
+  "firstname": "Sagar",
+  "lastname": "Way",
+  "username": "sktonyway",
+  "email": "sagar@example.com",
+  "password": "$2a$10$7qB9WvR8zX1y2z3A4B5C6D7E8F9G0H1I2J3K4L5M6N7O8P9Q0R1S",
+  "dp": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sagar",
+  "dob": "2002-05-15T00:00:00.000Z",
+  "public": false,
+  "sessions": [
     {
-      "ip": "something",
-      "logged_at": {
-        "$date": "2026-04-21T00:00:00.000Z"
-      },
-      "device_name": "Asus",
-      "isActive": true
+      "_id": "65f2a1b2c3d4e5f6a7b8c9d1",
+      "ip": "192.168.1.1",
+      "logged_at": "2026-05-15T10:30:00.000Z",
+      "location": "Patna, IN",
+      "device_name": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+      "isactive": true
     }
   ],
-  "email": "sk@tonyway.in",
-  "isPublic": true,
-  "name": "Sk Tonyway",
-  "profile_pic": "https://something",
-  "refreshToken": "something",
-  "userName": "tonyway"
+  "resetPasswordToken": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "resetPasswordExpires": "2026-05-15T11:30:00.000Z",
+  "createdAt": "2026-05-01T08:00:00.000Z",
+  "updatedAt": "2026-05-15T10:30:00.000Z",
+  "__v": 1
 }
 ```
 

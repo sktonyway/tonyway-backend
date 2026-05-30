@@ -7,13 +7,14 @@ const createNote = asyncHandler(async (req, res) => {
     title: req.body.title,
     content: req.body.content,
     category: req.body.category,
+    userId: req.user,
   });
   const savedNote = await newNote.save();
   res.status(201).json(savedNote);
 });
 
 const viewNote = asyncHandler(async (req, res) => {
-  const notes = await Note.find().sort({ createdAt: -1 });
+  const notes = await Note.find({userId: req.user}).sort({ createdAt: -1 });
   res.status(200).json(notes);
 });
 
@@ -57,6 +58,7 @@ const trashNote = asyncHandler(async (req, res) => {
   res.json(note);
 });
 
+// It will be handled by frontend mostly maybe watch it later
 const filterNotes = asyncHandler(async (req, res) => {
   const { term } = req.query;
   const filtered = await Note.find({

@@ -9,16 +9,17 @@ import {
   viewNote,
   filterNotes,
 } from "./notes.controllers.js";
+import { checkHeader, logged } from '../../common/middlewares/auth.middleware.js'
 
 const router = express.Router();
 
 // some API endpoints
-router.get("/", viewNote);
-router.post("/", createNote);
-router.get("/filters", filterNotes);
-router.get("/:id", openNote);
-router.patch("/:id/trash", trashNote);
-router.patch("/:id", updateNote);
-router.delete("/:id", deleteNote);
+router.get("/", checkHeader, logged, viewNote);
+router.post("/", checkHeader, logged, createNote);
+router.get("/filters", checkHeader, logged, filterNotes);
+router.get("/:id", checkHeader, logged, openNote);
+router.patch("/:id/trash", checkHeader, logged, trashNote);
+router.patch("/:id", checkHeader, logged, updateNote);
+router.delete("/:id", checkHeader, logged, deleteNote);
 
 export default router;
